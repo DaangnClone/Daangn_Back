@@ -3,7 +3,7 @@ package com.example.daangn.house.domain.enumType;
 import lombok.Getter;
 
 @Getter
-public enum OrderAdministration {
+public enum OtherAdministration {
     WATER("수도세"),
     ELECTRIC("전기세"),
     INTERNET("인터넷비용"),
@@ -14,7 +14,7 @@ public enum OrderAdministration {
 
     private String orders;
 
-    OrderAdministration(String orders) {
+    OtherAdministration(String orders) {
 
         this.orders = orders;
     }
