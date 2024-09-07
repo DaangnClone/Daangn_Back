@@ -30,6 +30,8 @@ public class house extends BaseTimeEntity {
 
     private int bathroom;
 
+    private int totalFloor;
+
     private int floor;
 
     @Enumerated(STRING)
@@ -50,19 +52,32 @@ public class house extends BaseTimeEntity {
 
     private String Location;
 
+    @Enumerated(STRING)
     private RoleType_house role;
 
+    @Enumerated(STRING)
     private HouseType houseType;
 
+    @Enumerated(STRING)
     private ApprovalType approvalType;
 
+    private int price;
+
+    @Enumerated(STRING)
     private Direction direction;
 
-    private int rommsize;
+    private int roomSize;
 
     private int administration;
 
-    private OrderAdministration orderAdministration;
+    private int AdministrationPrice;
+
+    private String AdministrationContent;
+
+    @Enumerated(STRING)
+    private OtherAdministration orderAdministration;
+
+    private String totalComent;
 
 
 
