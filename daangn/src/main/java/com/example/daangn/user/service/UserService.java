@@ -1,12 +1,12 @@
 package com.example.daangn.user.service;
 
-import com.example.daangn.security.custom.CustomUserinfoDTO;
 import com.example.daangn.security.jwt.JwtUtil;
 import com.example.daangn.user.domain.RoleType;
 import com.example.daangn.user.domain.User;
 import com.example.daangn.user.repository.UserRepository;
 import com.example.daangn.user.requestDTO.LoginDTO;
 import com.example.daangn.user.requestDTO.RegisterDTO;
+import com.example.daangn.security.custom.CustomUserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +36,7 @@ public class UserService {
             return "wrong password";
         }
 
-        CustomUserinfoDTO customUserinfoDTO = new CustomUserinfoDTO(user.getId(), user.getEmail(), user.getNickname(), user.getPassword(), user.getRole());
+        CustomUserInfoDto customUserinfoDTO = new CustomUserInfoDto(user.getId(), user.getEmail(), user.getNickname(), user.getPassword(), user.getRole());
         return jwtUtil.createAccessToken(customUserinfoDTO);
 
     }

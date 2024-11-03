@@ -17,34 +17,42 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService customUserDetailsService;
-    private final JwtUtil jwtUtl;
+    private final JwtUtil jwtUtil;
 
+    /**
+     * JWT 검증, 유효하다면 UserDetailService의 loadByUserName으로 해당 유저가 데이터베이스에 존재하는지 판단
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
-
+        // JWT가 헤더에 있는 경우
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
 
-            if(jwtUtl.validateToken(token)) {
-                Long userId = jwtUtl.getUserId(token);
+            // JWT 유효성 검증
+            if (jwtUtil.validateToken(token)) {
+                Long userId = jwtUtil.getUserId(token);
 
+                // 유저와 토큰 일치 시 userDetails 생성
                 UserDetails userDetails = customUserDetailsService.loadUserByUsername(userId.toString());
 
-                if(userDetails != null) {
+                if (userDetails != null) {
+                    // UserDetails, Password, Role -> 접근권한 인증 Token 생성
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
+                    // 현재 Request의 Security Context에 접근권한 설정
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
-
+            } else {
+                // JWT가 유효하지 않은 경우
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return; // 필터 체인 중단
             }
-
         }
-        filterChain.doFilter(request, response); // 다음 필터로 넘기기
 
+        // 다음 필터로 넘기기
+        filterChain.doFilter(request, response);
     }
-
-
 }

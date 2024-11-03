@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
-
-    private final CustomUserinfoDTO user;
+    private final CustomUserInfoDto user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,6 +57,4 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }
