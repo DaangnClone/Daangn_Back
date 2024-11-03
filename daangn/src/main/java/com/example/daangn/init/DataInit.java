@@ -18,7 +18,7 @@ public class DataInit {
 
     @PostConstruct
     public void init() {
-        User user = new User("user1", "test@namer.com", passwordEncoder.encode("1234"), "천안시 동남구 안서동", RoleType.USER);
+        User user = new User("user1", "test@naver.com", passwordEncoder.encode("1234"), "천안시 동남구 안서동", RoleType.USER);
 
         userRepository.save(user);
     }

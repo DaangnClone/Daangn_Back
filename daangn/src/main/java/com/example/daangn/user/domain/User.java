@@ -1,6 +1,7 @@
 package com.example.daangn.user.domain;
 
 import com.example.daangn.global.domain.BaseTimeEntity;
+import com.example.daangn.house.domain.House;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.*;
@@ -40,6 +43,9 @@ public class User extends BaseTimeEntity {
         this.location = location;
         this.role = role;
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<House> houses = new ArrayList<>();
 
 
 }

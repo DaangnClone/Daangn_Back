@@ -2,12 +2,20 @@ package com.example.daangn.house.requestDto;
 
 import com.example.daangn.house.domain.enumType.*;
 import lombok.Builder;
+import lombok.Getter;
 import org.joda.time.LocalDate;
 
 @Builder
+@Getter
 public class HouseCreatePostDTO {
 
     private RoleType_house role;
+
+    private String title;
+
+    private double area;
+
+    private Elevator elevator;
 
     private HouseType house;
 
@@ -31,11 +39,13 @@ public class HouseCreatePostDTO {
 
     private int floor;
 
-    private int AdministrationPrice;
+    private int administrationPrice;
+
+    private int administration;
 
     private OtherAdministration orderAdministration;
 
-    private String AdministrationContent;
+    private String administrationContent;
 
     private Bank bank;
 

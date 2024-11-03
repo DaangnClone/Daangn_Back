@@ -1,6 +1,6 @@
 package com.example.daangn.security.jwt;
 
-import com.example.daangn.security.custom.CustomUserinfoDTO;
+import com.example.daangn.security.custom.CustomUserInfoDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -32,7 +32,7 @@ public class JwtUtil {
      * @param member
      * @return Access Token String
      */
-    public String createAccessToken(CustomUserinfoDTO member) {
+    public String createAccessToken(CustomUserInfoDto member) {
         return createToken(member, accessTokenExpTime);
     }
 
@@ -43,10 +43,11 @@ public class JwtUtil {
      * @param expireTime
      * @return JWT String
      */
-    private String createToken(CustomUserinfoDTO user, long expireTime) {
+    private String createToken(CustomUserInfoDto user, long expireTime) {
         Claims claims = Jwts.claims();
         claims.put("userId", user.getUserId());
         claims.put("nickname", user.getNickname());
+        claims.put("role", user.getRole());
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
@@ -103,5 +104,4 @@ public class JwtUtil {
             return e.getClaims();
         }
     }
-
 }

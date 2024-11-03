@@ -2,9 +2,11 @@ package com.example.daangn.house.controller;
 
 import com.example.daangn.house.requestDto.HouseCreatePostDTO;
 import com.example.daangn.house.service.HouseService;
+import com.example.daangn.security.custom.CustomUserDetails;
 import com.example.daangn.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -19,10 +21,9 @@ public class HouseController {
 
     @PostMapping("creat")
     public String createHousePost(@RequestPart(value = "dto") HouseCreatePostDTO requestDto,
-                                  @AuthenticationPrincipal User user){
+                                  @AuthenticationPrincipal CustomUserDetails userDetails){
 
-        houseService.creat(user.getId(), requestDto);
-
+        houseService.creat(userDetails.getUserId(), requestDto);
         return "success";
     }
 
